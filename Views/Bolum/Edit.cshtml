@@ -1,0 +1,21 @@
+﻿@model BolumViewModel
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h2 class="mb-0">Bölüm Güncelleme</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Bolum" asp-action="Edit" method="post">
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="BolumId" />
+                <div class="mb-3">
+                    <label asp-for="Baslik" class="form-label">Başlık</label>
+                    <input asp-for="Baslik" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

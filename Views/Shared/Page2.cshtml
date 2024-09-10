@@ -1,0 +1,128 @@
+﻿@model RandevuViewModel
+
+<div class="container my-5">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h2 class="mb-0">Hasta Güncelleme</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Hasta" asp-action="EditForGiris" asp-route-id="@Model.Hasta.HastaId" method="post">
+                        <input type="hidden" asp-for="Hasta.HastaId" />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Hasta.HastaAd" class="form-label">Hasta Adı</label>
+                            <input asp-for="Hasta.HastaAd" class="form-control" />
+                            <span asp-validation-for="Hasta.HastaAd" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Hasta.Telefon" class="form-label">Telefon</label>
+                            <input asp-for="Hasta.Telefon" class="form-control" />
+                            <span asp-validation-for="Hasta.Telefon" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Hasta.TcKimlik" class="form-label">TC Kimlik</label>
+                            <input asp-for="Hasta.TcKimlik" class="form-control" readonly />
+                            <span asp-validation-for="Hasta.TcKimlik" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Hasta.Adres" class="form-label">Adres</label>
+                            <input asp-for="Hasta.Adres" class="form-control" />
+                            <span asp-validation-for="Hasta.Adres" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Hasta Geliş Kaydı Ekle</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Randevu" asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label for="HastaAd" class="form-label">Hasta</label>
+                            <input type="text" class="form-control" id="HastaAd" name="HastaAd" value="@Model.YeniRandevu.Hasta.HastaAd" readonly/>
+                            <input asp-for="YeniRandevu.HastaId" type="hidden"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bolumSelect" class="form-label">Bölüm</label>
+                            <select asp-items="ViewBag.Bolumler" class="form-select" id="bolumSelect">
+                                <option value="">Seçiniz</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="YeniRandevu.DoktorId" class="form-label">Doktor</label>
+                            <select asp-for="YeniRandevu.DoktorId" asp-items="ViewBag.Doktorlar" class="form-select" id="doktorSelect">
+                                <option value="">Seçiniz</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="YeniRandevu.KayitTarihi" class="form-label">Kayıt Tarihi</label>
+                            <input asp-for="YeniRandevu.KayitTarihi" class="form-control" type="datetime-local"/>
+                        </div>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h2 class="mb-0">Hasta Gelişleri</h2>
+                </div>
+                <div class="card-body">
+                    @if (Model.HastaRandevulari != null && Model.HastaRandevulari.Count > 0)
+                    {
+                        <ul class="list-group">
+                            @foreach (var randevu in Model.HastaRandevulari)
+                            {
+                                <li class="list-group-item">
+                                    @randevu.KayitTarihi - Doktor: @randevu.Doktor.DoktorAdSoyad (@(randevu.Doktor.Bolum != null ? randevu.Doktor.Bolum.Baslik : "Bölüm yok"))
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Bu hasta için henüz randevu bulunmamaktadır.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('bolumSelect').addEventListener('change', function () {
+            var bolumId = this.value;
+
+            if (bolumId) {
+                fetch('/Doktor/GetDoktorlar?bolumId=' + bolumId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var doktorSelect = document.getElementById('doktorSelect');
+                        doktorSelect.innerHTML = '<option value="">Seçiniz</option>';
+
+                        data.forEach(doktor => {
+                            var option = document.createElement('option');
+                            option.value = doktor.doktorId;
+                            option.text = doktor.doktorAdSoyad;
+                            doktorSelect.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Hata:', error));
+            } else {
+                document.getElementById('doktorSelect').innerHTML = '<option value="">Seçiniz</option>';
+            }
+        });
+    </script>
+}

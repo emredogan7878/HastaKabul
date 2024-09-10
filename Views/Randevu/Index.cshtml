@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Randevu>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Hasta Gelişleri</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Hasta adı ile ara..." name="searchString" value="@ViewBag.SearchString" />
+                    <select class="form-control" name="timeFilter">
+                        <option value="1">@(ViewBag.SelectedTimeFilter == "1" ? "" : "") Son 1 Ay</option>
+                        <option value="3">@(ViewBag.SelectedTimeFilter == "3" ? "" : "") Son 3 Ay</option>
+                        <option value="6">@(ViewBag.SelectedTimeFilter == "6" ? "" : "") Son 6 Ay</option>
+                        <option value="12">@(ViewBag.SelectedTimeFilter == "12" ? "" : "") Son 12 Ay</option>
+                        <option value="all">@(ViewBag.SelectedTimeFilter == "all" ? "" : "") Tüm Zamanlar</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit">Ara</button>
+                </div>
+            </form>
+
+            <a asp-action="Create" class="btn btn-success mb-3">Hasta Gelişi Ekle</a>
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width:150px;">@Html.DisplayNameFor(m => m.RandevuId)</th>
+                        <th>@Html.DisplayNameFor(m => m.Hasta.HastaAd)</th>
+                        <th>@Html.DisplayNameFor(m => m.Doktor.Bolum.Baslik)</th>
+                        <th>@Html.DisplayNameFor(m => m.KayitTarihi)</th>
+                        <th style="width:150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.RandevuId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Hasta.HastaAd)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Doktor.Bolum.Baslik)</td>
+                            <td>@Html.DisplayFor(modelItem => item.KayitTarihi)</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.RandevuId" class="btn btn-sm btn-primary mr-2">Düzenle</a>
+                                <a asp-action="Delete" asp-route-id="@item.RandevuId" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

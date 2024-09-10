@@ -1,0 +1,49 @@
+﻿@model Doktor
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Doktor Ekle</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Doktor" asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="DoktorAd" class="form-label">Doktor Adı</label>
+                    <input asp-for="DoktorAd" class="form-control" />
+                    <span asp-validation-for="DoktorAd" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DoktorSoyad" class="form-label">Doktor Soyadı</label>
+                    <input asp-for="DoktorSoyad" class="form-control" />
+                    <span asp-validation-for="DoktorSoyad" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DoktorEposta" class="form-label">E-posta</label>
+                    <input asp-for="DoktorEposta" class="form-control" />
+                    <span asp-validation-for="DoktorEposta" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DoktorTelefon" class="form-label">Telefon</label>
+                    <input asp-for="DoktorTelefon" class="form-control" />
+                    <span asp-validation-for="DoktorTelefon" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="BaslamaTarihi" class="form-label">Başlama Tarihi</label>
+                    <input asp-for="BaslamaTarihi" class="form-control" />
+                    <span asp-validation-for="BaslamaTarihi" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="BolumId" class="form-label">Bölüm</label>
+                    <select asp-for="BolumId" asp-items="ViewBag.Bolumler" class="form-select">
+                        <option value="">Seçiniz</option>
+                    </select>
+                    <span asp-validation-for="BolumId" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

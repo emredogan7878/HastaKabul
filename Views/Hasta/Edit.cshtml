@@ -1,0 +1,38 @@
+﻿@model Hasta
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h2 class="mb-0">Hasta Güncelleme</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Hasta" asp-action="Edit" method="post">
+                <input type="hidden" asp-for="HastaId" />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="HastaAd" class="form-label">Hasta Adı</label>
+                    <input asp-for="HastaAd" class="form-control" />
+                    <span asp-validation-for="HastaAd" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Telefon" class="form-label">Telefon</label>
+                    <input asp-for="Telefon" class="form-control" />
+                    <span asp-validation-for="Telefon" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TcKimlik" class="form-label">TC Kimlik</label>
+                    <input asp-for="TcKimlik" class="form-control" />
+                    <span asp-validation-for="TcKimlik" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Adres" class="form-label">Adres</label>
+                    <input asp-for="Adres" class="form-control" />
+                    <span asp-validation-for="Adres" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

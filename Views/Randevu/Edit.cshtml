@@ -1,0 +1,67 @@
+﻿@model Randevu
+@{
+    var formattedDate = Model.KayitTarihi.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h2 class="mb-0">Hasta Geliş Kaydı Güncelleme</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Randevu" asp-action="Edit" method="post">
+                <input type="hidden" asp-for="RandevuId" />
+                <div class="mb-3">
+                    <label for="HastaAd" class="form-label">Hasta</label>
+                    <input type="text" class="form-control" id="HastaAd" name="HastaAd" value="@Model.Hasta.HastaAd" readonly />
+                    <input asp-for="HastaId" type="hidden" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bölüm</label>
+                    <select asp-items="ViewBag.Bolumler" class="form-select" id="bolumSelect">
+                        <option value="@Model.Doktor.BolumId">Seçiniz</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DoktorId" class="form-label">Doktor</label>
+                    <select asp-for="DoktorId" asp-items="ViewBag.Doktorlar" class="form-select" id="doktorSelect">
+                        <option value="">Seçiniz</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="KayitTarihi" class="form-label">Kayıt Tarihi</label>
+                    <input asp-for="KayitTarihi" class="form-control" type="datetime-local" value="@formattedDate" />
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('bolumSelect').addEventListener('change', function () {
+            var bolumId = this.value;
+
+            if (bolumId) {
+                fetch('/Doktor/GetDoktorlar?bolumId=' + bolumId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var doktorSelect = document.getElementById('doktorSelect');
+                        doktorSelect.innerHTML = '<option value="">Seçiniz</option>';
+
+                        data.forEach(doktor => {
+                            var option = document.createElement('option');
+                            option.value = doktor.doktorId;
+                            option.text = doktor.doktorAdSoyad;
+                            doktorSelect.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Hata:', error));
+            } else {
+                document.getElementById('doktorSelect').innerHTML = '<option value="">Seçiniz</option>';
+            }
+        });
+    </script>
+}

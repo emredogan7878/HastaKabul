@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Doktor>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Doktor Listesi</h2>
+        </div>
+        <div class="card-body">
+            <a href="/Doktor/Create" class="btn btn-success mb-3">Doktor Ekle</a>
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 150px;">@Html.DisplayNameFor(m => m.DoktorId)</th>
+                        <th>@Html.DisplayNameFor(m => m.DoktorAd)</th>
+                        <th>@Html.DisplayNameFor(m => m.DoktorSoyad)</th>
+                        <th>@Html.DisplayNameFor(m => m.BaslamaTarihi)</th>
+                        <th style="width: 150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.DoktorId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DoktorAd)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DoktorSoyad)</td>
+                            <td>@Html.DisplayFor(modelItem => item.BaslamaTarihi)</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.DoktorId" class="btn btn-sm btn-primary mr-2">Düzenle</a>
+                                <a asp-action="Delete" asp-route-id="@item.DoktorId" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

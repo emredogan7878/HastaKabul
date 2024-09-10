@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Hasta>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Hasta Listesi</h2>
+        </div>
+        <div class="card-body">
+            <a href="/Hasta/Create" class="btn btn-success mb-3">Hasta Ekle</a>
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 150px;">@Html.DisplayNameFor(m => m.HastaId)</th>
+                        <th>@Html.DisplayNameFor(m => m.HastaAd)</th>
+                        <th>@Html.DisplayNameFor(m => m.Telefon)</th>
+                        <th>@Html.DisplayNameFor(m => m.TcKimlik)</th>
+                        <th style="width: 150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.HastaId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.HastaAd)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Telefon)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TcKimlik)</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.HastaId" class="btn btn-primary btn-sm mr-2">Düzenle</a>
+                                <a asp-action="Delete" asp-route-id="@item.HastaId" class="btn btn-danger btn-sm">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

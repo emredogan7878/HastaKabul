@@ -1,0 +1,64 @@
+﻿@model HospitalApp.Data.Hasta
+@{
+    ViewBag.Title = "Yeni Hasta Oluştur";
+    var randevular = ViewBag.Randevular as List<HospitalApp.Data.Randevu>;
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Yeni Hasta Oluştur</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="HastaOlustur" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label for="TcKimlik" class="form-label">TC Kimlik No</label>
+                            <input type="text" class="form-control" id="TcKimlik" name="TcKimlik" value="@ViewBag.TcKimlik" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label for="HastaAd" class="form-label">Hasta Adı</label>
+                            <input type="text" class="form-control" id="HastaAd" name="HastaAd" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Telefon" class="form-label">Telefon</label>
+                            <input type="text" class="form-control" id="Telefon" name="Telefon" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Adres" class="form-label">Adres</label>
+                            <textarea class="form-control" id="Adres" name="Adres"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h2 class="mb-0">Hasta Gelişleri</h2>
+                </div>
+                <div class="card-body">
+                    @if (randevular != null && randevular.Count > 0)
+                    {
+                        <ul class="list-group">
+                            @foreach (var randevu in randevular)
+                            {
+                                <li class="list-group-item">
+                                    @randevu.KayitTarihi - Bölüm: @randevu.Doktor.Bolum.Baslik
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Bu hasta için henüz randevu bulunmamaktadır.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

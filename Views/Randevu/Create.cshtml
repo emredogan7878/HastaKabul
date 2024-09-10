@@ -1,0 +1,63 @@
+﻿@model Randevu
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Hasta Geliş Kaydı Ekleme</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Randevu" asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="HastaId" class="form-label">Hasta</label>
+                    <select asp-for="HastaId" asp-items="ViewBag.Hastalar" class="form-select">
+                        <option value="">Seçiniz</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bölüm</label>
+                    <select asp-items="ViewBag.Bolumler" class="form-select" id="bolumSelect">
+                        <option value="">Seçiniz</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DoktorId" class="form-label">Doktor</label>
+                    <select asp-for="DoktorId" asp-items="ViewBag.Doktorlar" class="form-select" id="doktorSelect">
+                        <option value="">Seçiniz</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="KayitTarihi" class="form-label">Kayıt Tarihi</label>
+                    <input asp-for="KayitTarihi" class="form-control" type="datetime-local" />
+                </div>
+                <button type="submit" class="btn btn-success">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('bolumSelect').addEventListener('change', function () {
+            var bolumId = this.value;
+
+            if (bolumId) {
+                fetch('/Doktor/GetDoktorlar?bolumId=' + bolumId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var doktorSelect = document.getElementById('doktorSelect');
+                        doktorSelect.innerHTML = '<option value="">Seçiniz</option>';
+
+                        data.forEach(doktor => {
+                            var option = document.createElement('option');
+                            option.value = doktor.doktorId;
+                            option.text = doktor.doktorAdSoyad;
+                            doktorSelect.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Hata:', error));
+            } else {
+                document.getElementById('doktorSelect').innerHTML = '<option value="">Seçiniz</option>';
+            }
+        });
+    </script>
+}

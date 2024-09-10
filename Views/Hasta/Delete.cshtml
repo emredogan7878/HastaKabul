@@ -1,0 +1,19 @@
+﻿@model Hasta
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h2 class="mb-0">Hasta Sil</h2>
+        </div>
+        <div class="card-body">
+            <p><b>@Model.HastaAd</b> isimli hastayı silmek istiyor musunuz?</p>
+            <form asp-action="Delete" method="post">
+                <input type="hidden" name="id" value="@Model.HastaId" />
+                <div class="d-flex justify-content-start">
+                    <button type="submit" class="btn btn-danger mr-2">Evet</button>
+                    <a asp-action="Index" class="btn btn-secondary">Hayır</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

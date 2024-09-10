@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Hasta Sorgula";
+}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Hasta Sorgulama</h2>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.HataMesaji != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.HataMesaji
+                </div>
+            }
+
+            <form asp-action="Sorgula" method="post">
+                <div class="mb-3">
+                    <label for="tcKimlik" class="form-label">TC Kimlik No</label>
+                    <input type="text" class="form-control" id="tcKimlik" name="tcKimlik" pattern="\d{11}" title="TC Kimlik numarası 11 haneli olmalıdır." required />
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Sorgula</button>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿@model Doktor
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h2 class="mb-0">Doktor Sil</h2>
+        </div>
+        <div class="card-body">
+            <p><b>@Model.DoktorAd</b> isimli öğrenciyi silmek istiyor musunuz?</p>
+            <form asp-action="Delete" method="post">
+                <input type="hidden" name="id" value="@Model.DoktorId" />
+                <div class="d-flex justify-content-start">
+                    <button type="submit" class="btn btn-danger mr-2">Evet</button>
+                    <a asp-action="Index" class="btn btn-secondary">Hayır</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

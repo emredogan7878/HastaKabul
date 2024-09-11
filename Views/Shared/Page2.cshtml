@@ -45,7 +45,7 @@
                     <h2 class="mb-0">Hasta Geliş Kaydı Ekle</h2>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Randevu" asp-action="Create" method="post">
+                    <form asp-controller="Randevu" asp-action="CreateForGiris" method="post">
                         <div class="mb-3">
                             <label for="HastaAd" class="form-label">Hasta</label>
                             <input type="text" class="form-control" id="HastaAd" name="HastaAd" value="@Model.YeniRandevu.Hasta.HastaAd" readonly/>

@@ -9,6 +9,7 @@ namespace HospitalApp.Data
 
         [Required(ErrorMessage = "Hasta adı zorunludur.")]
         [StringLength(100, ErrorMessage = "Hasta adı en fazla 100 karakter olabilir.")]
+        [Display(Name = "Hasta Ad ve Soyad")]
         public string? HastaAd { get; set; }
 
         [Required(ErrorMessage = "Telefon numarası zorunludur.")]
@@ -17,6 +18,7 @@ namespace HospitalApp.Data
 
         [Required(ErrorMessage = "TC Kimlik numarası zorunludur.")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "TC Kimlik numarası 11 haneli olmalıdır.")]
+        [Display(Name = "Tc Kimlik")]
         public string? TcKimlik { get; set; }
 
         [Required(ErrorMessage = "Adres zorunludur.")]

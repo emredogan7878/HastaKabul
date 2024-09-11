@@ -48,8 +48,8 @@ namespace HospitalApp.Controllers
             }
 
             var hst = await _context
-                .Hastalar
-                .FirstOrDefaultAsync(o => o.HastaId == id);
+                            .Hastalar
+                            .FirstOrDefaultAsync(o => o.HastaId == id);
             if (hst == null)
             {
                 return NotFound();

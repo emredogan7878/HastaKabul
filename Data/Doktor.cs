@@ -9,10 +9,12 @@ namespace HospitalApp.Data
 
         [Required(ErrorMessage = "Doktor adı zorunludur.")]
         [StringLength(50, ErrorMessage = "Doktor adı en fazla 50 karakter olabilir.")]
+        [Display(Name ="Doktor Ad")]
         public string? DoktorAd { get; set; }
 
         [Required(ErrorMessage = "Doktor soyadı zorunludur.")]
         [StringLength(50, ErrorMessage = "Doktor soyadı en fazla 50 karakter olabilir.")]
+        [Display(Name = "Doktor Soyad")]
         public string? DoktorSoyad { get; set; }
 
         public string DoktorAdSoyad
@@ -31,6 +33,7 @@ namespace HospitalApp.Data
         [Required(ErrorMessage = "Başlama tarihi zorunludur.")]
         [DataType(DataType.Date, ErrorMessage = "Geçerli bir tarih giriniz.")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
+        [Display(Name = "İşe Başlama Tarihi")]
         public DateTime BaslamaTarihi { get; set; }
 
         [Required(ErrorMessage = "Lütfen geçerli bir bölüm seçiniz.")]

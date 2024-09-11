@@ -6,6 +6,7 @@ namespace HospitalApp.Data
     {
         [Key]
         public int BolumId { get; set; }
+        [Display(Name = "Bölüm")]
         public string? Baslik { get; set; }
     }
 }

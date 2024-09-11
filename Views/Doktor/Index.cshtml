@@ -13,7 +13,9 @@
                         <th style="width: 150px;">@Html.DisplayNameFor(m => m.DoktorId)</th>
                         <th>@Html.DisplayNameFor(m => m.DoktorAd)</th>
                         <th>@Html.DisplayNameFor(m => m.DoktorSoyad)</th>
+                        <th>@Html.DisplayNameFor(m => m.Bolum.Baslik)</th>
                         <th>@Html.DisplayNameFor(m => m.BaslamaTarihi)</th>
+                        
                         <th style="width: 150px;"></th>
                     </tr>
                 </thead>
@@ -24,7 +26,9 @@
                             <td>@Html.DisplayFor(modelItem => item.DoktorId)</td>
                             <td>@Html.DisplayFor(modelItem => item.DoktorAd)</td>
                             <td>@Html.DisplayFor(modelItem => item.DoktorSoyad)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Bolum.Baslik)</td>
                             <td>@Html.DisplayFor(modelItem => item.BaslamaTarihi)</td>
+                            
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.DoktorId" class="btn btn-sm btn-primary mr-2">Düzenle</a>
                                 <a asp-action="Delete" asp-route-id="@item.DoktorId" class="btn btn-sm btn-danger">Sil</a>

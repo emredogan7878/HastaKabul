@@ -22,7 +22,6 @@ namespace HospitalApp.Controllers
                 .ThenInclude(d => d.Bolum)
                 .AsQueryable();
 
-            // Hasta adı ile arama
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
@@ -30,17 +29,16 @@ namespace HospitalApp.Controllers
                 ViewBag.SearchString = searchString;
             }
 
-            // Zaman filtresi
             DateTime now = DateTime.Now;
             if (!string.IsNullOrEmpty(timeFilter) && timeFilter != "all")
             {
                 int months = int.Parse(timeFilter);
                 DateTime dateFrom = now.AddMonths(-months);
                 randevular = randevular.Where(r => r.KayitTarihi >= dateFrom);
-            }
 
-            // Seçili filtreyi sakla
+            }
             ViewBag.SelectedTimeFilter = timeFilter;
+
 
             return View(await randevular.ToListAsync());
         }
@@ -60,7 +58,16 @@ namespace HospitalApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RandevuViewModel model)
+        public async Task<IActionResult> Create(Randevu model)
+        {
+            _context.Randevular.Add(model);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateForGiris(RandevuViewModel model)
         {
             _context.Randevular.Add(model.YeniRandevu);
             await _context.SaveChangesAsync();
